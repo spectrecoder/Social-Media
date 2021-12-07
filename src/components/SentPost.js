@@ -17,7 +17,7 @@ export default function SentPost({image,msg,id,imgName}) {
             setComments(snapshot.docs.map(doc=>({comId: doc.id, ...doc.data()})))
         })
         return ()=>unSub()
-    },[])
+    },[collectionRef])
 
     async function submitComment(e){
         e.preventDefault()

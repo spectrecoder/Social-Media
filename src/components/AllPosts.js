@@ -11,7 +11,7 @@ export default function AllPosts() {
             setPosts(snap.docs.map(doc=>({id: doc.id, ...doc.data()})))
         })
         return ()=>unSub()
-    },[])
+    },[collectionRef])
 
     return (
         <div className="allPosts">
