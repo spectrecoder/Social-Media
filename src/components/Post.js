@@ -48,6 +48,7 @@ export default function Post() {
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} iconName="fas fa-video"/>
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} iconName="fas fa-camera"/>
                                 {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default">{file.name}</button>}
+                                {disable && <i className="fas fa-circle-notch text-2xl text-blue-500"></i>}
                             </div>
                             <MiniButton text="Preview"/>
                         </div>

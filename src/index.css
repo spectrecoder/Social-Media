@@ -157,6 +157,19 @@ body {
   }
 }
 
+.fa-circle-notch {
+  animation: rotating 0.5s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .overlay::before {
   content: "";
   position: absolute;

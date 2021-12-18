@@ -8,20 +8,20 @@ import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, ser
 export default function SentPost({image,msg,id,imgName}) {
     const [openMsg, setOpenMsg] = useState(false)
     const [deleteBtn, setDeleteBtn] = useState(false)
-    const collectionRef = collection(db, `posts/${id}/comments`)
+    // const collectionRef = collection(db, `posts/${id}/comments`)
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
 
     useEffect(()=>{
-        const unSub = onSnapshot(query(collectionRef, orderBy('time', 'asc')), snapshot=>{
+        const unSub = onSnapshot(query(collection(db, `posts/${id}/comments`), orderBy('time', 'asc')), snapshot=>{
             setComments(snapshot.docs.map(doc=>({comId: doc.id, ...doc.data()})))
         })
         return ()=>unSub()
-    },[collectionRef])
+    },[id])
 
     async function submitComment(e){
         e.preventDefault()
-        const res = await addDoc(collectionRef,{
+        const res = await addDoc(collection(db, `posts/${id}/comments`),{
             username: 'Sunny',
             comment,
             avatar: 'pic1.png',

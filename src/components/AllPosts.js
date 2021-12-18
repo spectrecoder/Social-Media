@@ -3,15 +3,15 @@ import SentPost from './SentPost'
 import { collection, onSnapshot, db, query, orderBy } from '../firebase'
 
 export default function AllPosts() {
-    const collectionRef = collection(db, 'posts')
+    // const collectionRef = collection(db, 'posts')
     const [posts, setPosts] = useState([])
 
     useEffect(()=>{
-        const unSub = onSnapshot(query(collectionRef, orderBy('timestamp', 'desc')), (snap)=>{
+        const unSub = onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), (snap)=>{
             setPosts(snap.docs.map(doc=>({id: doc.id, ...doc.data()})))
         })
         return ()=>unSub()
-    },[collectionRef])
+    },[])
 
     return (
         <div className="allPosts">
