@@ -3,7 +3,6 @@ import SentPost from './SentPost'
 import { collection, onSnapshot, db, query, orderBy } from '../firebase'
 
 export default function AllPosts() {
-    // const collectionRef = collection(db, 'posts')
     const [posts, setPosts] = useState([])
 
     useEffect(()=>{

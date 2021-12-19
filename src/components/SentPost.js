@@ -4,16 +4,16 @@ import PostMsg from './PostMsg'
 import SideItem from './SideItem'
 import ToggleIcon from './ToggleIcon'
 import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, deleteObject, ref, storage } from '../firebase'
+import FlipMove from 'react-flip-move'
 
 export default function SentPost({image,msg,id,imgName}) {
     const [openMsg, setOpenMsg] = useState(false)
-    const [deleteBtn, setDeleteBtn] = useState(false)
-    // const collectionRef = collection(db, `posts/${id}/comments`)
+    const [showBtn, setShowBtn] = useState(false)
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
 
     useEffect(()=>{
-        const unSub = onSnapshot(query(collection(db, `posts/${id}/comments`), orderBy('time', 'asc')), snapshot=>{
+        const unSub = onSnapshot(query(collection(db, `posts/${id}/comments`), orderBy('time', 'desc')), snapshot=>{
             setComments(snapshot.docs.map(doc=>({comId: doc.id, ...doc.data()})))
         })
         return ()=>unSub()
@@ -48,8 +48,11 @@ export default function SentPost({image,msg,id,imgName}) {
                         <p className="text-lg text-gray-400 font-semibold">sponsored <i className="fas fa-globe-americas"></i></p>
                     </div>
                 </div>
-                <i className="fas fa-ellipsis-h text-xl text-gray-600 cursor-pointer" onClick={()=>setDeleteBtn(state=>!state)}></i>
-                <button onClick={removeDoc} className={`deleteBtn absolute top-1/3 right-0 py-2 px-8 bg-white text-gray-700 font-semibold text-lg shadow-lg rounded-lg border border-solid border-gray-300 ${deleteBtn?'opacity-100':'opacity-0'}`}>Delete</button>
+                <i className="fas fa-ellipsis-h text-xl text-gray-600 cursor-pointer" onClick={()=>setShowBtn(state=>!state)}></i>
+                <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'opacity-100':'opacity-0'}`}>
+                    <button onClick={removeDoc} className={`deleteBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full border-0 border-b border-solid border-gray-300 hover:text-white hover:bg-red-500 transition duration-700`}>Delete</button>
+                    <button onClick={removeDoc} className={`editBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full hover:text-white hover:bg-red-500 transition duration-500`}>Edit</button>
+                </div>
             </div>
 
             {image && <div className="sentPost__image h-81 relative">
@@ -69,7 +72,7 @@ export default function SentPost({image,msg,id,imgName}) {
                 <div className="iconsToggle flex">
                     <ToggleIcon iconName="fas fa-eye" amount="29"/>
                     <ToggleIcon iconName="fas fa-heart" amount="2k"/>
-                    <ToggleIcon iconName="far fa-comment-dots" amount="65" setOpenMsg={setOpenMsg}/>
+                    <ToggleIcon iconName="far fa-comment-dots" amount={comments.length || 0} setOpenMsg={setOpenMsg}/>
                     <ToggleIcon iconName="fas fa-share-alt" amount="23k"/>
                 </div>
                 <div className="rmd">
@@ -86,7 +89,9 @@ export default function SentPost({image,msg,id,imgName}) {
 
             <div className={`sentPost__messages pt-5 overflow-hidden ${openMsg?"block":"hidden"}`}>
                 <div className="messageContainer overflow-scroll max-h-82 myScroll">
-                    {comments.map(data=><PostMsg key={data.comId} image={data.avatar} comment={data.comment} name={data.username} time={data.time} comId={data.comId} id={id}/>)}
+                    <FlipMove>
+                        {comments.map(data=><PostMsg key={data.comId} image={data.avatar} comment={data.comment} name={data.username} time={data.time} comId={data.comId} id={id}/>)}
+                    </FlipMove>
                 </div>
                 <div className="sendComment flex gap-4">
                     <img src={`images/pic1.png`} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/>

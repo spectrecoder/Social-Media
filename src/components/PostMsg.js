@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { deleteDoc, doc, db } from '../firebase'
 
-export default function PostMsg({image, comment, name, time, comId, id}) {
+const PostMsg = forwardRef(({image, comment, name, time, comId, id}, ref) => {
 
     function removeComment(){
         deleteDoc(doc(db, `posts/${id}/comments`, comId))
     }
 
     return (
-        <div className="postMsg flex gap-4 mb-4">
+        <div ref={ref} className="postMsg flex gap-4 mb-4">
             <img src={`images/${image}`} alt="images" className={` w-16 h-16 rounded-full object-cover cursor-pointer border-0`}/>
             <div className="content  border-0 border-b border-gray-300 border-solid w-full">
                 <h3 className="text-xl text-gray-800 font-semibold">{name}</h3>
@@ -21,4 +21,6 @@ export default function PostMsg({image, comment, name, time, comId, id}) {
             </div>
         </div>
     )
-}
+})
+
+export default PostMsg
