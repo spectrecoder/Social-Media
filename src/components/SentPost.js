@@ -49,7 +49,7 @@ export default function SentPost({image,msg,id,imgName}) {
                     </div>
                 </div>
                 <i className="fas fa-ellipsis-h text-xl text-gray-600 cursor-pointer" onClick={()=>setShowBtn(state=>!state)}></i>
-                <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'opacity-100':'opacity-0'}`}>
+                <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'opacity-100':'opacity-0'} rounded-lg overflow-hidden`}>
                     <button onClick={removeDoc} className={`deleteBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full border-0 border-b border-solid border-gray-300 hover:text-white hover:bg-red-500 transition duration-700`}>Delete</button>
                     <button onClick={removeDoc} className={`editBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full hover:text-white hover:bg-red-500 transition duration-500`}>Edit</button>
                 </div>

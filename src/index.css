@@ -316,6 +316,10 @@ body {
   animation: bubbling 0.8s linear forwards;
 }
 
+.lightBox {
+  background-color: rgba(68, 68, 68, 0.6);
+}
+
 @keyframes bubbling {
   0%,
   100% {
