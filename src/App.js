@@ -4,15 +4,17 @@ import LeftSideBar from './components/LeftSideBar';
 // import LightBox from './components/LightBox';
 import MiddleSection from './components/MiddleSection';
 import RightSideBar from './components/RightSideBar';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
     <>
-      <Header/>
+      {/* <Header/>
       <LeftSideBar/>
       <RightSideBar/>
-      <MiddleSection/>
+      <MiddleSection/> */}
       {/* <LightBox/> */}
+      <SignUp/>
     </>
   );
 }

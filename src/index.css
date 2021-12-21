@@ -10,6 +10,15 @@
   .icon__style {
     @apply w-14 h-14 flex justify-center items-center rounded-full text-white text-3xl cursor-pointer;
   }
+  .label__style {
+    @apply text-xl text-gray-500 font-normal select-none;
+  }
+  .input__style {
+    @apply normal-case w-full p-4 rounded-lg overflow-hidden border border-solid border-gray-300 focus:border-indigo-400 focus:shadow-lg mt-2 text-lg text-gray-600;
+  }
+  .smIcon__style {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center text-2xl text-white cursor-pointer;
+  }
 }
 
 * {
@@ -336,4 +345,28 @@ body {
 
 .deleteBtn {
   transition: all 0.2s ease;
+}
+
+.checkbox:checked + .custom__checkbox {
+  background-color: rgba(6, 21, 153, 0.6);
+  border-color: rgba(6, 21, 153, 0.6);
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 0.1rem;
+  background-color: #dbdbdb;
+  transform: translateY(-50%);
+}
+
+.orDivider::before {
+  left: 0;
+}
+
+.orDivider::after {
+  right: 0;
 }
