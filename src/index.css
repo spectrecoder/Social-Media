@@ -32,6 +32,10 @@
   outline: none;
 }
 
+#norton-idsafe-field-logo-imgId {
+  display: none;
+}
+
 html {
   font-size: 62.5%;
   overflow-x: hidden;
