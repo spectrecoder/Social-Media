@@ -2,8 +2,13 @@ import React from 'react'
 import AvatarImg from './AvatarImg'
 import Icon from './Icon'
 import Logo from './Logo'
+import {auth, signOut } from '../firebase'
+import {useSelector} from 'react-redux'
+import {profile} from '../slices/profileSlice'
 
 export default function Header() {
+    const user = useSelector(profile)
+
     return (
         <section className="header bg-gray-700 py-5 px-4 fixed top-0 left-0 w-full z-50">
 
@@ -24,14 +29,14 @@ export default function Header() {
                         <Icon iconName="fas fa-bell"/>
                         <Icon iconName="far fa-comment-dots"/>
                         <Icon iconName="fas fa-globe-europe"/>
-                        <Icon iconName="fas fa-sign-out-alt"/>
+                        <Icon iconName="fas fa-sign-out-alt" auth={auth} signOut={signOut}/>
                         <Icon iconName="far fa-question-circle"/>
                     </div>
 
                     <div className="avatarSection flex items-center">
                         <div className="avatar flex items-center">
-                            <h3 className="mr-3 text-xl text-gray-200 font-semibold">Alucard Hellsing</h3>
-                            <AvatarImg border image="hot.jpg"/>
+                            <h3 className="mr-3 text-xl text-gray-200 font-semibold">{user.info.displayName.split(" ")[0]}</h3>
+                            <AvatarImg border image={user.info.photoURL}/>
                         </div>
                         <i className="fas fa-cog text-3xl text-gray-100 ml-6 cursor-pointer"></i>
                     </div>

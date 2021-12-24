@@ -5,12 +5,15 @@ import SideItem from './SideItem'
 import ToggleIcon from './ToggleIcon'
 import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, deleteObject, ref, storage } from '../firebase'
 import FlipMove from 'react-flip-move'
+import {useSelector} from 'react-redux'
+import {profile} from '../slices/profileSlice'
 
 export default function SentPost({image,msg,id,imgName}) {
     const [openMsg, setOpenMsg] = useState(false)
     const [showBtn, setShowBtn] = useState(false)
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
+    const user = useSelector(profile)
 
     useEffect(()=>{
         const unSub = onSnapshot(query(collection(db, `posts/${id}/comments`), orderBy('time', 'desc')), snapshot=>{
@@ -42,7 +45,7 @@ export default function SentPost({image,msg,id,imgName}) {
 
             <div className={`sentPost__header flex justify-between ${image&&'mb-7'} relative`}>
                 <div className="imageContent flex gap-6 items-center">
-                    <AvatarImg noBorder image="pic1.png"/>
+                    <AvatarImg image={user.info.photoURL}/>
                     <div className="content">
                         <h3 className="text-xl text-red-500 font-semibold">Digital Market</h3>
                         <p className="text-lg text-gray-400 font-semibold">sponsored <i className="fas fa-globe-americas"></i></p>
@@ -94,7 +97,7 @@ export default function SentPost({image,msg,id,imgName}) {
                     </FlipMove>
                 </div>
                 <div className="sendComment flex gap-4">
-                    <img src={`images/pic1.png`} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/>
+                    <img src={user.info.photoURL} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/>
                     <form className="w-full">
                         <textarea value={comment} onChange={(e)=>setComment(e.target.value)} className="w-full h-32 resize-none rounded-lg bg-gray-200 px-4 py-5 text-gray-600 text-lg normal-case" placeholder="send a message"></textarea>
                         <input disabled={!comment} onClick={submitComment} type="submit" value="send" className={`py-2 px-8 rounded-lg text-white ${comment?'bg-blue-500 cursor-pointer hover:bg-red-500':'bg-blue-300'} font-medium text-xl uppercase transition duration-500`}/>

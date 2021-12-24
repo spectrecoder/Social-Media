@@ -3,15 +3,19 @@ import LeftHeader from './LeftHeader'
 import ProfButton from './ProfButton'
 import ProfIcons from './ProfIcons'
 import SideItem from './SideItem'
+import {useSelector} from 'react-redux'
+import {profile} from '../slices/profileSlice'
 
 export default function Profile() {
+    const user = useSelector(profile)
+
     return (
         <div className="profile overflow-hidden mb-8 rounded-lg bg-white h-100">
             <LeftHeader text="your page"/>
             <div className="profile__info h-89 pt-8 px-6">
 
                 <div className="profile__avatar flex items-center gap-4 border-0 border-b border-gray-300 border-solid pb-8">
-                    <img src="images/pic2.png" alt="avatar" className="h-20 w-20 border border-gray-500 border-solid rounded-full object-cover"/>
+                    <img src={user.info.photoURL} alt="avatar" className="h-20 w-20 border border-gray-400 border-solid rounded-full object-cover"/>
                     <div className="desc">
                         <h3 className="text-gray-500 text-2xl font-semibold cursor-pointer hover:text-red-500 relative buttonUp">my creative page</h3>
                         <div className="text-lg text-gray-400 mt-1"><i className="far fa-comment dots"></i> messages</div>

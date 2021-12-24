@@ -4,12 +4,15 @@ import FileButton from './FileButton'
 import LeftHeader from './LeftHeader'
 import MiniButton from './MiniButton'
 import {collection, addDoc, db, serverTimestamp, deleteObject, storage, ref} from '../firebase'
+import {useSelector} from 'react-redux'
+import {profile} from '../slices/profileSlice'
 
 export default function Post() {
     const [postMsg, setPostMsg] = useState('')
     const [url, setUrl] = useState('')
     const [disable, setDisable] = useState(false)
     const [file, setFile] = useState(null)
+    const user = useSelector(profile)
 
     async function makePost(e){
         e.preventDefault()
@@ -48,7 +51,7 @@ export default function Post() {
 
                 <form className="w-full h-full border-0 border-t border-solid border-gray-300 py-6 flex justify-between flex-col">
                     <div className="comment flex gap-6">
-                        <AvatarImg image="hot.jpg"/>
+                        <AvatarImg image={user.info.photoURL}/>
                         <textarea value={postMsg} onChange={(e)=>setPostMsg(e.target.value)} className="w-full h-20 resize-none text-2xl text-gray-700 pt-4 placeholder-gray-400 font-medium normal-case" placeholder="post whatever you are thinking"></textarea>
                     </div>
                     <div className="post__container">

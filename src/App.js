@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from "react";
+import {useEffect} from "react";
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import Login from './components/Login';
@@ -8,38 +8,49 @@ import MiddleSection from './components/MiddleSection';
 import RightSideBar from './components/RightSideBar';
 import SignUp from './components/SignUp';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {auth, onAuthStateChanged} from './firebase'
+import {useDispatch, useSelector} from 'react-redux'
+import {profile} from './slices/profileSlice'
+import {makeProfile} from './slices/profileSlice'
 
 function App() {
-  const [profile, setProfile] = useState('sunny')
+  const userProfile = useSelector(profile)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+        dispatch(makeProfile(user))
+        // console.log(user)
+    })
+    return unsubscribe;    
+  },[dispatch])
 
   return (
-    <>
-    {!profile?
     <Router>
       <Routes>
-        <Route path="signUp" element={<SignUp/>}/>
-        <Route path="signIn" element={<Login/>}/>
-        <Route path="*" element={<Navigate replace to="/signIn" />}/>
+        {!userProfile.info?
+        <>
+          <Route path="signUp" element={<SignUp/>}/>
+          <Route path="signIn" element={<Login/>}/>
+          <Route path="*" element={<Navigate replace to="/signIn" />}/>
+        </>
+        :
+        <>
+          <Route path="/" element={
+            <>
+              <Header/>
+              <LeftSideBar/>
+              <RightSideBar/>
+              <MiddleSection/>
+              {/* <LightBox/> */}
+            </>
+          }>
+          </Route>
+          <Route path="*" element={<Navigate replace to="/" />}/>
+        </>
+        }
       </Routes>
     </Router>
-    :
-    <Router>
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Header/>
-            <LeftSideBar/>
-            <RightSideBar/>
-            <MiddleSection/>
-            {/* <LightBox/> */}
-          </>
-        }>
-        </Route>
-        <Route path="*" element={<Navigate replace to="/" />}/>
-      </Routes>
-    </Router>
-    }
-    </>
   );
 }
 
