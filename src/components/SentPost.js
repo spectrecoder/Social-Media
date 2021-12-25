@@ -5,8 +5,8 @@ import SideItem from './SideItem'
 import ToggleIcon from './ToggleIcon'
 import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, deleteObject, ref, storage } from '../firebase'
 import FlipMove from 'react-flip-move'
-import {useSelector} from 'react-redux'
-import {profile} from '../slices/profileSlice'
+import {useSelector, useDispatch} from 'react-redux'
+import {profile, openBox} from '../slices/profileSlice'
 
 export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
     const [openMsg, setOpenMsg] = useState(false)
@@ -14,6 +14,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
     const user = useSelector(profile)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         const unSub = onSnapshot(query(collection(db, `posts/${id}/comments`), orderBy('time', 'desc')), snapshot=>{
@@ -45,6 +46,11 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
         }
     }
 
+    function editDoc(){
+        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id}}))
+        setShowBtn(false)
+    }
+
     return (
         <div className={`sentPost p-7 bg-white rounded-xl overflow-hidden mb-8`}>
 
@@ -59,7 +65,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
                 <i className="fas fa-ellipsis-h text-xl text-gray-600 cursor-pointer" onClick={()=>setShowBtn(state=>!state)}></i>
                 <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'block':'hidden'} rounded-lg overflow-hidden`}>
                     <button onClick={removeDoc} className={`select-none deleteBtn py-2 px-8 bg-white font-semibold text-lg block w-full border-0 border-b border-solid border-gray-300 ${userId === user.info.uid ? 'hover:text-white text-gray-700 hover:bg-red-500 transition duration-500' : 'text-gray-500 cursor-not-allowed'}`}>Delete</button>
-                    <button onClick={removeDoc} className={`select-none editBtn py-2 px-8 bg-white font-semibold text-lg block w-full ${userId === user.info.uid ? 'hover:text-white text-gray-700 hover:bg-red-500 transition duration-500' : 'text-gray-500 cursor-not-allowed'}`}>Edit</button>
+                    <button onClick={editDoc} className={`select-none editBtn py-2 px-8 bg-white font-semibold text-lg block w-full ${userId === user.info.uid ? 'hover:text-white text-gray-700 hover:bg-red-500 transition duration-500' : 'text-gray-500 cursor-not-allowed'}`}>Edit</button>
                 </div>
             </div>
 

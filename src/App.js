@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import Login from './components/Login';
-// import LightBox from './components/LightBox';
+import LightBox from './components/LightBox';
 import MiddleSection from './components/MiddleSection';
 import RightSideBar from './components/RightSideBar';
 import SignUp from './components/SignUp';
@@ -42,7 +42,7 @@ function App() {
               <LeftSideBar/>
               <RightSideBar/>
               <MiddleSection/>
-              {/* <LightBox/> */}
+              <LightBox/>
             </>
           }>
           </Route>
