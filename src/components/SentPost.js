@@ -8,7 +8,7 @@ import FlipMove from 'react-flip-move'
 import {useSelector} from 'react-redux'
 import {profile} from '../slices/profileSlice'
 
-export default function SentPost({image,msg,id,imgName}) {
+export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
     const [openMsg, setOpenMsg] = useState(false)
     const [showBtn, setShowBtn] = useState(false)
     const [comments, setComments] = useState([])
@@ -25,10 +25,11 @@ export default function SentPost({image,msg,id,imgName}) {
     async function submitComment(e){
         e.preventDefault()
         const res = await addDoc(collection(db, `posts/${id}/comments`),{
-            username: 'Sunny',
+            username: user.info.displayName.split(" ")[0],
             comment,
-            avatar: 'pic1.png',
-            time: serverTimestamp()
+            avatar: user.info.photoURL || null,
+            time: serverTimestamp(),
+            userId: user.info.uid
         })
         if (res){
             setComment('')
@@ -36,8 +37,12 @@ export default function SentPost({image,msg,id,imgName}) {
     }
 
     function removeDoc(){
-        deleteDoc(doc(db, 'posts', id))
-        imgName && deleteObject(ref(storage, `images/${imgName}`))
+        if(userId === user.info.uid){
+            deleteDoc(doc(db, 'posts', id))
+            imgName && deleteObject(ref(storage, `images/${imgName}`))
+        }else{
+            return
+        }
     }
 
     return (
@@ -45,16 +50,16 @@ export default function SentPost({image,msg,id,imgName}) {
 
             <div className={`sentPost__header flex justify-between ${image&&'mb-7'} relative`}>
                 <div className="imageContent flex gap-6 items-center">
-                    <AvatarImg image={user.info.photoURL}/>
+                    <AvatarImg image={userImg}/>
                     <div className="content">
-                        <h3 className="text-xl text-red-500 font-semibold">Digital Market</h3>
+                        <h3 className="text-xl text-red-500 font-semibold">{name}</h3>
                         <p className="text-lg text-gray-400 font-semibold">sponsored <i className="fas fa-globe-americas"></i></p>
                     </div>
                 </div>
                 <i className="fas fa-ellipsis-h text-xl text-gray-600 cursor-pointer" onClick={()=>setShowBtn(state=>!state)}></i>
-                <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'opacity-100':'opacity-0'} rounded-lg overflow-hidden`}>
-                    <button onClick={removeDoc} className={`deleteBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full border-0 border-b border-solid border-gray-300 hover:text-white hover:bg-red-500 transition duration-700`}>Delete</button>
-                    <button onClick={removeDoc} className={`editBtn py-2 px-8 bg-white text-gray-700 font-semibold text-lg block w-full hover:text-white hover:bg-red-500 transition duration-500`}>Edit</button>
+                <div className={`operations absolute top-1/3 right-0 shadow-lg rounded-lg z-10 border border-solid border-gray-300 ${showBtn?'block':'hidden'} rounded-lg overflow-hidden`}>
+                    <button onClick={removeDoc} className={`select-none deleteBtn py-2 px-8 bg-white font-semibold text-lg block w-full border-0 border-b border-solid border-gray-300 ${userId === user.info.uid ? 'hover:text-white text-gray-700 hover:bg-red-500 transition duration-500' : 'text-gray-500 cursor-not-allowed'}`}>Delete</button>
+                    <button onClick={removeDoc} className={`select-none editBtn py-2 px-8 bg-white font-semibold text-lg block w-full ${userId === user.info.uid ? 'hover:text-white text-gray-700 hover:bg-red-500 transition duration-500' : 'text-gray-500 cursor-not-allowed'}`}>Edit</button>
                 </div>
             </div>
 
@@ -93,7 +98,7 @@ export default function SentPost({image,msg,id,imgName}) {
             <div className={`sentPost__messages pt-5 overflow-hidden ${openMsg?"block":"hidden"}`}>
                 <div className="messageContainer overflow-scroll max-h-82 myScroll">
                     <FlipMove>
-                        {comments.map(data=><PostMsg key={data.comId} image={data.avatar} comment={data.comment} name={data.username} time={data.time} comId={data.comId} id={id}/>)}
+                        {comments.map(data=><PostMsg key={data.comId} image={data.avatar} comment={data.comment} name={data.username} time={data.time} comId={data.comId} id={id} userId={data.userId} ownerId={userId}/>)}
                     </FlipMove>
                 </div>
                 <div className="sendComment flex gap-4">

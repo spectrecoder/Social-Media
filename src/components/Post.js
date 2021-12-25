@@ -18,10 +18,12 @@ export default function Post() {
         e.preventDefault()
         const res = await addDoc(collection(db, 'posts'), {
             img: url,
-            name: "Roy",
+            name: user.info.displayName.split(" ")[0],
             msg: postMsg,
             timestamp: serverTimestamp(),
-            imgName: file?.name || ""
+            imgName: file?.name || "",
+            userId: user.info.uid,
+            userImg: user.info.photoURL || null
         })
         if (res){
             setPostMsg('')
@@ -57,11 +59,11 @@ export default function Post() {
                     <div className="post__container">
                         <div className="post__icons flex justify-between items-center">
                             <div className="icons__container flex gap-6 items-center">
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-map-marker-alt" bg/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-music"/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image"/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video"/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera"/>
+                                <i className="fas fa-map-marker-alt text-red-500 text-2xl"></i>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-music" disable={disable}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image" disable={disable}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video" disable={disable}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera" disable={disable}/>
                                 {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default">{file.name}</button>}
                                 {disable && <i className="fas fa-circle-notch text-2xl text-blue-500"></i>}
                             </div>

@@ -1,18 +1,22 @@
 import React,{useRef} from 'react'
 import {storage,ref,uploadBytesResumable,getDownloadURL,deleteObject} from '../firebase'
 
-export default function FileButton({iconName, bg, setDisable, setUrl, setFile, fileInfo}) {
+export default function FileButton({iconName, setDisable, setUrl, setFile, fileInfo, disable}) {
     const fileRef = useRef()
 
     function handleClick(){
-        fileRef.current.click()
+        if(fileInfo || disable){
+            return
+        }else{
+            fileRef.current.click()
+        }
     }
 
     function selectFile(e){
-        if(fileInfo){
-            deleteObject(ref(storage, `images/${fileInfo.name}`))
-        }
         const file = e.target.files[0]
+        if(!file){
+            return
+        }
         setDisable(true)
         const storageRef = ref(storage, `images/${file.name}`)
         uploadBytesResumable(storageRef, file).then(async snapshot => {
@@ -20,13 +24,15 @@ export default function FileButton({iconName, bg, setDisable, setUrl, setFile, f
             setFile(file)
             setDisable(false)
             setUrl(downloadURL)
+        }).catch(err=>{
+            console.log(err.message)
         })
     }
 
     return (
         <>
             <input ref={fileRef} type="file" className="hidden" onChange={selectFile}/>
-            <i className={`${iconName} ${bg ?"text-red-500":"text-gray-500"} text-2xl cursor-pointer`} onClick={handleClick}></i>
+            <i className={`${iconName} text-2xl ${fileInfo || disable? 'text-gray-400 cursor-not-allowed': 'text-gray-500 cursor-pointer'}`} onClick={handleClick}></i>
         </>
     )
 }
