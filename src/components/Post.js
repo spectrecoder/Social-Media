@@ -12,6 +12,7 @@ export default function Post() {
     const [url, setUrl] = useState('')
     const [disable, setDisable] = useState(false)
     const [file, setFile] = useState(null)
+    const [imageName, setImageName] = useState('')
     const user = useSelector(profile)
 
     async function makePost(e){
@@ -21,15 +22,17 @@ export default function Post() {
             name: user.info.displayName.split(" ")[0],
             msg: postMsg,
             timestamp: serverTimestamp(),
-            imgName: file?.name || "",
+            imgName: imageName,
             userId: user.info.uid,
-            userImg: user.info.photoURL || null
+            userImg: user.info.photoURL || null,
+            userImageName: file?.name || ''
         })
         if (res){
             setPostMsg('')
             setFile(null)
             setUrl('')
             setDisable(false)
+            setImageName('')
         }
     }
 
@@ -38,11 +41,12 @@ export default function Post() {
         if(!file && !postMsg){
             return
         }else{
-            await file && deleteObject(ref(storage, `images/${file.name}`))
+            await file && deleteObject(ref(storage, `images/${imageName}`))
             setPostMsg('')
             setFile(null)
             setUrl('')
             setDisable(false)
+            setImageName('')
         }
     }
 
@@ -60,10 +64,10 @@ export default function Post() {
                         <div className="post__icons flex justify-between items-center">
                             <div className="icons__container flex gap-6 items-center">
                                 <i className="fas fa-map-marker-alt text-red-500 text-2xl"></i>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-music" disable={disable}/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image" disable={disable}/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video" disable={disable}/>
-                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera" disable={disable}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-music" disable={disable} setImageName={setImageName}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image" disable={disable} setImageName={setImageName}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video" disable={disable} setImageName={setImageName}/>
+                                <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera" disable={disable} setImageName={setImageName}/>
                                 {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default">{file.name}</button>}
                                 {disable && <i className="fas fa-circle-notch text-2xl text-blue-500"></i>}
                             </div>

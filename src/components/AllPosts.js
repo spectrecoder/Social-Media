@@ -14,7 +14,7 @@ export default function AllPosts() {
 
     return (
         <div className="allPosts">
-            {posts.map(post=><SentPost key={post.id} image={post.img} msg={post.msg} id={post.id} imgName={post.imgName} name={post.name} userId={post.userId} userImg={post.userImg}/>)}
+            {posts.map(post=><SentPost key={post.id} image={post.img} msg={post.msg} id={post.id} imgName={post.imgName} name={post.name} userId={post.userId} userImg={post.userImg} userImgName={post.userImageName}/>)}
         </div>
     )
 }

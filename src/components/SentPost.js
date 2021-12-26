@@ -3,12 +3,12 @@ import AvatarImg from './AvatarImg'
 import PostMsg from './PostMsg'
 import SideItem from './SideItem'
 import ToggleIcon from './ToggleIcon'
-import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, deleteObject, ref, storage } from '../firebase'
+import { deleteDoc, doc, db, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, deleteObject, ref, storage, getDocs } from '../firebase'
 import FlipMove from 'react-flip-move'
 import {useSelector, useDispatch} from 'react-redux'
 import {profile, openBox} from '../slices/profileSlice'
 
-export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
+export default function SentPost({image,msg,id,imgName,name,userId,userImg, userImgName}) {
     const [openMsg, setOpenMsg] = useState(false)
     const [showBtn, setShowBtn] = useState(false)
     const [comments, setComments] = useState([])
@@ -37,17 +37,21 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
         }
     }
 
-    function removeDoc(){
+    async function removeDoc(){
         if(userId === user.info.uid){
             deleteDoc(doc(db, 'posts', id))
             imgName && deleteObject(ref(storage, `images/${imgName}`))
+            const allCommentDocs = await getDocs(collection(db, `posts/${id}/comments`))
+            allCommentDocs.forEach(document=>{
+                deleteDoc(doc(db, `posts/${id}/comments`, document.id))
+            })
         }else{
             return
         }
     }
 
     function editDoc(){
-        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id, imgUrl: image, imgName}}))
+        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id, imgUrl: image, imgName, userImgName}}))
         setShowBtn(false)
     }
 
