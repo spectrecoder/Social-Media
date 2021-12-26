@@ -47,7 +47,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
     }
 
     function editDoc(){
-        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id}}))
+        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id, imgUrl: image, imgName}}))
         setShowBtn(false)
     }
 
@@ -78,7 +78,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg}) {
                 </div>
             </div>}
 
-            {msg&&<p className="sentPost__comment py-8 text-xl text-gray-400 font-semibold border-0 border-b border-gray-300 border-solid">
+            {msg&&<p className="sentPost__comment py-8 text-xl text-gray-400 font-semibold border-0 border-b border-gray-300 border-solid normal-case">
                 {msg}
             </p>}
 

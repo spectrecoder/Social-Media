@@ -1,28 +1,38 @@
 import React,{useState, useEffect} from 'react'
 import AvatarImg from './AvatarImg'
 import FileButton from './FileButton'
-import {useSelector} from 'react-redux'
-import {profile} from '../slices/profileSlice'
-import {deleteObject, storage, ref} from '../firebase'
+import {useSelector, useDispatch} from 'react-redux'
+import {profile, openBox} from '../slices/profileSlice'
+import {deleteObject, storage, ref, doc, updateDoc, db} from '../firebase'
 
-export default function UpdatePost({msg, id}) {
+export default function UpdatePost({msg, id, url, imgName}) {
     const [updatePostMsg, setUpdatePostMsg] = useState('')
     const [updatedUrl, setUpdatedUrl] = useState('')
     const [updatedDisable, setUpdatedDisable] = useState(false)
     const [updatedFile, setUpdatedFile] = useState(null)
+    // const [btnDisable, setBtnDisable] = useState(false)
     const user = useSelector(profile)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         setUpdatePostMsg(msg || '')
+        setUpdatedUrl(url || '')
+        setUpdatedFile(imgName&&{name:imgName} || null)
     },[msg])
 
-    // console.log('reload')
-
-    // console.log(msg, id)
-    // console.log(updatePostMsg)
+    async function updatePost(e){
+        e.preventDefault()
+        updateDoc(doc(db, "posts", id), {
+            msg: updatePostMsg,
+            img: updatedUrl || '',
+            imgName: updatedFile?.name || '', 
+        })
+        dispatch(openBox({class: 'hidden', postData:null}))
+    }
 
     async function deleteImage(e){
         e.preventDefault()
+        // setBtnDisable(true)
         await deleteObject(ref(storage, `images/${updatedFile.name}`))
         setUpdatedUrl('')
         setUpdatedFile('')
@@ -40,7 +50,7 @@ export default function UpdatePost({msg, id}) {
                     <FileButton setFile={setUpdatedFile} setUrl={setUpdatedUrl} setDisable={setUpdatedDisable} iconName="far fa-image" disable={updatedDisable} fileInfo={updatedFile}/>
                     <FileButton setFile={setUpdatedFile} setUrl={setUpdatedUrl} setDisable={setUpdatedDisable} iconName="fas fa-video" disable={updatedDisable} fileInfo={updatedFile}/>
                     <FileButton setFile={setUpdatedFile} setUrl={setUpdatedUrl} setDisable={setUpdatedDisable} iconName="fas fa-camera" disable={updatedDisable} fileInfo={updatedFile}/>
-                    <input disabled={updatedDisable || (!updatePostMsg && !updatedUrl)} type="submit" value="update" className={`postButton px-8 py-2 ${updatedDisable || (!updatePostMsg && !updatedUrl)?'bg-blue-300':'bg-blue-400 hover:bg-red-500 cursor-pointer'} rounded-lg text-white font-medium text-xl transition duration-500`}/>
+                    <input onClick={updatePost} disabled={updatedDisable || (!updatePostMsg && !updatedUrl)} type="submit" value="update" className={`postButton px-8 py-2 ${updatedDisable || (!updatePostMsg && !updatedUrl)?'bg-blue-300':'bg-blue-400 hover:bg-red-500 cursor-pointer'} rounded-lg text-white font-medium text-xl transition duration-500`}/>
                 </div>
             </form>
         </div>
