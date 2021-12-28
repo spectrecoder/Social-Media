@@ -5,7 +5,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
         serializableCheck: {
-            ignoredActions: ["profile/makeProfile", "profile/openBox"],
+            ignoredActions: ["profile/makeProfile", "profile/openBox", "profile/display"],
         }
     }),
 

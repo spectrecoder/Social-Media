@@ -1,12 +1,15 @@
 import React,{useRef, useState} from 'react'
 import { Link } from "react-router-dom";
 import {auth, createUserWithEmailAndPassword, updateProfile, googleProvider, signInWithPopup} from '../firebase'
+import {useDispatch} from 'react-redux'
+import {display} from '../slices/profileSlice'
 
 export default function SignUp() {
     const checkRef = useRef()
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+    const dispatch = useDispatch()
 
     function createUser(e){
         e.preventDefault()
@@ -16,6 +19,7 @@ export default function SignUp() {
             await updateProfile(auth.currentUser, {
                 displayName:userName
             })
+            dispatch(display({name:user.displayName}))
             setUserName('')
             setEmail('')
             setPass('')

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Birthday() {
     return (
-        <div className="birthday rounded-t-lg overflow-hidden h-86 bg-gray-100 mb-8">
+        <div className="birthday rounded-t-lg overflow-hidden h-86 bg-white mb-8">
             <div className="birthday__header bg-purple-600 flex justify-between items-center py-3 px-4">
                 <div className="birthday__left flex items-center gap-3">
                     <img src="images/hot.jpg" alt="profile" className="border-none w-16 h-16 rounded-full object-cover"/>

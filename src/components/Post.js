@@ -19,12 +19,12 @@ export default function Post() {
         e.preventDefault()
         const res = await addDoc(collection(db, 'posts'), {
             img: url,
-            name: user.info.displayName.split(" ")[0],
+            name: user.info.displayName?.split(" ")[0],
             msg: postMsg,
             timestamp: serverTimestamp(),
             imgName: imageName,
             userId: user.info.uid,
-            userImg: user.info.photoURL || user.info.displayName.split(" ")[0][0],
+            userImg: user.info.photoURL || user.info.displayName?.split(" ")[0][0],
             userImageName: file?.name || ''
         })
         if (res){
@@ -67,7 +67,7 @@ export default function Post() {
 
                 <form className="w-full h-full border-0 border-t border-solid border-gray-300 py-6 flex justify-between flex-col">
                     <div className="comment flex gap-6">
-                        <AvatarImg image={user.info.photoURL} name={`${user.info.photoURL ? '': user.info.displayName.split(" ")[0][0]}`}/>
+                        <AvatarImg image={user.info.photoURL} name={`${user.info.photoURL ? '': user.info.displayName?.split(" ")[0][0]}`}/>
                         <textarea value={postMsg} onChange={(e)=>setPostMsg(e.target.value)} className="w-full h-20 resize-none text-2xl text-gray-700 pt-4 placeholder-gray-400 font-medium normal-case" placeholder="post whatever you are thinking"></textarea>
                     </div>
                     <div className="post__container">

@@ -42,7 +42,7 @@ export default function UpdatePost({msg, id, url, imgName, userImgName}) {
 
     return (
         <div className="updatePost w-120 bg-white p-9 flex gap-6 rounded-lg overflow-hidden">
-            <AvatarImg image={user.info.photoURL}/>
+            <AvatarImg image={user.info.photoURL} name={`${user.info.photoURL ? '': user.info.displayName?.split(" ")[0][0]}`}/>
             <form className="updatePost__container border border-solid border-gray-300 w-full p-4 rounded-lg">
                 <textarea value={updatePostMsg} onChange={(e)=>setUpdatePostMsg(e.target.value)} className="w-full h-28 resize-none text-xl text-gray-700 placeholder-gray-400 font-medium normal-case" placeholder="your new message"></textarea>
                 <div className="updatePost__icon flex justify-end items-center gap-6">

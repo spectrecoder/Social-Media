@@ -26,9 +26,9 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
     async function submitComment(e){
         e.preventDefault()
         const res = await addDoc(collection(db, `posts/${id}/comments`),{
-            username: user.info.displayName.split(" ")[0],
+            username: user.info.displayName?.split(" ")[0],
             comment,
-            avatar: user.info.photoURL || user.info.displayName.split(" ")[0][0],
+            avatar: user.info.photoURL || user.info.displayName?.split(" ")[0][0],
             time: serverTimestamp(),
             userId: user.info.uid
         })
@@ -116,7 +116,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
                     </FlipMove>
                 </div>
                 <div className="sendComment flex gap-4">
-                    {user.info.photoURL ? <img src={user.info.photoURL} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/> : <i className={`w-16 h-16 rounded-full border-0 cursor-pointer bg-blue-500 text-white text-3xl font-semibold flex items-center justify-center not-italic`}>{user.info.displayName.split(" ")[0][0]}</i>}
+                    {user.info.photoURL ? <img src={user.info.photoURL} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/> : <i className={`w-14 h-14 rounded-full border-0 cursor-pointer bg-blue-500 text-white text-3xl font-semibold flex items-center justify-center not-italic overflow-hidden normal-case`}>{user.info.displayName?.split(" ")[0][0]}</i>}
                     <form className="w-full">
                         <textarea value={comment} onChange={(e)=>setComment(e.target.value)} className="w-full h-32 resize-none rounded-lg bg-gray-200 px-4 py-5 text-gray-600 text-lg normal-case" placeholder="send a message"></textarea>
                         <input disabled={!comment} onClick={submitComment} type="submit" value="send" className={`py-2 px-8 rounded-lg text-white ${comment?'bg-blue-500 cursor-pointer hover:bg-red-500':'bg-blue-300'} font-medium text-xl uppercase transition duration-500`}/>

@@ -35,8 +35,8 @@ export default function Header() {
 
                     <div className="avatarSection flex items-center">
                         <div className="avatar flex items-center">
-                            <h3 className="mr-3 text-xl text-gray-200 font-semibold">{user.info.displayName.split(" ")[0]}</h3>
-                            <AvatarImg border image={`${user.info.photoURL ? user.info.photoURL : ''}`} name={`${user.info.photoURL ? '': user.info.displayName.split(" ")[0][0]}`}/>
+                            <h3 className="mr-3 text-xl text-gray-200 font-semibold normal-case">{user.info.displayName?.split(" ")[0]}</h3>
+                            <AvatarImg border image={`${user.info.photoURL ? user.info.photoURL : ''}`} name={`${user.info.photoURL ? '': user.info.displayName?.split(" ")[0][0]}`}/>
                         </div>
                         <i className="fas fa-cog text-3xl text-gray-100 ml-6 cursor-pointer"></i>
                     </div>
