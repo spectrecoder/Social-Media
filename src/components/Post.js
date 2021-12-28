@@ -24,7 +24,7 @@ export default function Post() {
             timestamp: serverTimestamp(),
             imgName: imageName,
             userId: user.info.uid,
-            userImg: user.info.photoURL || null,
+            userImg: user.info.photoURL || user.info.displayName.split(" ")[0][0],
             userImageName: file?.name || ''
         })
         if (res){
@@ -50,6 +50,16 @@ export default function Post() {
         }
     }
 
+    async function deleteImg(e){
+        e.preventDefault()
+        setDisable(true)
+        await deleteObject(ref(storage, `images/${imageName}`))
+        setDisable(false)
+        setImageName('')
+        setFile(null)
+        setUrl('')
+    }
+
     return (
         <div className="post h-73 bg-white rounded-lg overflow-hidden mb-8">
             <LeftHeader text="create post" noBorder/>
@@ -57,7 +67,7 @@ export default function Post() {
 
                 <form className="w-full h-full border-0 border-t border-solid border-gray-300 py-6 flex justify-between flex-col">
                     <div className="comment flex gap-6">
-                        <AvatarImg image={user.info.photoURL}/>
+                        <AvatarImg image={user.info.photoURL} name={`${user.info.photoURL ? '': user.info.displayName.split(" ")[0][0]}`}/>
                         <textarea value={postMsg} onChange={(e)=>setPostMsg(e.target.value)} className="w-full h-20 resize-none text-2xl text-gray-700 pt-4 placeholder-gray-400 font-medium normal-case" placeholder="post whatever you are thinking"></textarea>
                     </div>
                     <div className="post__container">
@@ -68,7 +78,7 @@ export default function Post() {
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image" disable={disable} setImageName={setImageName}/>
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video" disable={disable} setImageName={setImageName}/>
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera" disable={disable} setImageName={setImageName}/>
-                                {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default">{file.name}</button>}
+                                {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default relative">{file.name} <i className="fas fa-times-circle text-lg absolute top-0 right-2 cursor-pointer" onClick={deleteImg}></i></button>}
                                 {disable && <i className="fas fa-circle-notch text-2xl text-blue-500"></i>}
                             </div>
                             <MiniButton text="Reset" makeReset={makeReset}/>

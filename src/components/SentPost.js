@@ -28,7 +28,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
         const res = await addDoc(collection(db, `posts/${id}/comments`),{
             username: user.info.displayName.split(" ")[0],
             comment,
-            avatar: user.info.photoURL || null,
+            avatar: user.info.photoURL || user.info.displayName.split(" ")[0][0],
             time: serverTimestamp(),
             userId: user.info.uid
         })
@@ -51,8 +51,12 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
     }
 
     function editDoc(){
-        dispatch(openBox({class: 'flex', postData:{message: msg, docId: id, imgUrl: image, imgName, userImgName}}))
-        setShowBtn(false)
+        if(userId === user.info.uid){
+            setShowBtn(false)
+            dispatch(openBox({class: 'flex', postData:{message: msg, docId: id, imgUrl: image, imgName, userImgName}}))
+        }else{
+            return
+        }
     }
 
     return (
@@ -60,7 +64,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
 
             <div className={`sentPost__header flex justify-between ${image&&'mb-7'} relative`}>
                 <div className="imageContent flex gap-6 items-center">
-                    <AvatarImg image={userImg}/>
+                    <AvatarImg image={`${userImg.length === 1? '' : userImg}`} name={`${userImg.length === 1? userImg : ''}`}/>
                     <div className="content">
                         <h3 className="text-xl text-red-500 font-semibold">{name}</h3>
                         <p className="text-lg text-gray-400 font-semibold">sponsored <i className="fas fa-globe-americas"></i></p>
@@ -112,7 +116,7 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
                     </FlipMove>
                 </div>
                 <div className="sendComment flex gap-4">
-                    <img src={user.info.photoURL} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/>
+                    {user.info.photoURL ? <img src={user.info.photoURL} alt="images" className={` w-16 h-16 rounded-full object-cover border-0 cursor-pointer`}/> : <i className={`w-16 h-16 rounded-full border-0 cursor-pointer bg-blue-500 text-white text-3xl font-semibold flex items-center justify-center not-italic`}>{user.info.displayName.split(" ")[0][0]}</i>}
                     <form className="w-full">
                         <textarea value={comment} onChange={(e)=>setComment(e.target.value)} className="w-full h-32 resize-none rounded-lg bg-gray-200 px-4 py-5 text-gray-600 text-lg normal-case" placeholder="send a message"></textarea>
                         <input disabled={!comment} onClick={submitComment} type="submit" value="send" className={`py-2 px-8 rounded-lg text-white ${comment?'bg-blue-500 cursor-pointer hover:bg-red-500':'bg-blue-300'} font-medium text-xl uppercase transition duration-500`}/>

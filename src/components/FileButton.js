@@ -1,10 +1,10 @@
 import React,{useRef} from 'react'
-import {storage,ref,uploadBytesResumable,getDownloadURL,deleteObject} from '../firebase'
+import {storage,ref,uploadBytesResumable,getDownloadURL} from '../firebase'
 
-export default function FileButton({iconName, setDisable, setUrl, setFile, fileInfo, disable, setImageName, setImgRef}) {
+export default function FileButton({iconName, setDisable, setUrl, setFile, fileInfo, disable, setImageName}) {
     const fileRef = useRef()
 
-    function handleClick(){
+    async function handleClick(){
         if(fileInfo || disable){
             return
         }else{
@@ -22,10 +22,6 @@ export default function FileButton({iconName, setDisable, setUrl, setFile, fileI
         const storageRef = ref(storage, `images/${imgName}`)
         uploadBytesResumable(storageRef, file).then(async snapshot => {
             const downloadURL = await getDownloadURL(storageRef)
-            if(setImgRef){
-                // console.log('hi')
-                setImgRef(imgName)
-            }
             setFile(file)
             setDisable(false)
             setUrl(downloadURL)

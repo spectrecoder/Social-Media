@@ -15,7 +15,7 @@ export default function Profile() {
             <div className="profile__info h-89 pt-8 px-6">
 
                 <div className="profile__avatar flex items-center gap-4 border-0 border-b border-gray-300 border-solid pb-8">
-                    <img src={user.info.photoURL} alt="avatar" className="h-20 w-20 border border-gray-400 border-solid rounded-full object-cover"/>
+                    {user.info.photoURL ? <img src={user.info.photoURL} alt="avatar" className="h-20 w-20 border border-gray-400 border-solid rounded-full object-cover"/> : <i className={`w-16 h-16 rounded-full border-0 cursor-pointer bg-blue-500 text-white text-3xl font-semibold flex items-center justify-center not-italic`}>{user.info.displayName.split(" ")[0][0]}</i>}
                     <div className="desc">
                         <h3 className="text-gray-500 text-2xl font-semibold cursor-pointer hover:text-red-500 relative buttonUp">my creative page</h3>
                         <div className="text-lg text-gray-400 mt-1"><i className="far fa-comment dots"></i> messages</div>

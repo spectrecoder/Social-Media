@@ -15,7 +15,7 @@ const PostMsg = forwardRef(({image, comment, name, time, comId, id, userId, owne
 
     return (
         <div ref={ref} className="postMsg flex gap-4 mb-4">
-            <img src={image} alt="images" className={` w-16 h-16 rounded-full object-cover cursor-pointer border-0`}/>
+            {image.length === 1 ? <i className={`w-16 h-16 rounded-full border-0 cursor-pointer bg-blue-500 text-white text-3xl font-semibold flex items-center justify-center not-italic`}>{image}</i> : <img src={image} alt="images" className={` w-16 h-16 rounded-full object-cover cursor-pointer border-0`}/>}
             <div className="content  border-0 border-b border-gray-300 border-solid w-full">
                 <h3 className="text-xl text-gray-800 font-semibold">{name}</h3>
                 <p className="text-xl text-gray-600 font-medium mb-2 mt-1 normal-case">{comment}</p>
