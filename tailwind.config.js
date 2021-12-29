@@ -11,7 +11,9 @@ module.exports = {
         '82': '21rem'
        },
        inset:{
-         '7': '7rem'
+         '7': '7rem',
+         '105': '128%',
+         '46': '46%'
        },
       fontSize: {
         'half': '2.5rem',

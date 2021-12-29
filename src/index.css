@@ -374,3 +374,7 @@ body {
 .orDivider::after {
   right: 0;
 }
+
+.friendList {
+  transition: all 0.3s ease;
+}
