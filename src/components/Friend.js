@@ -1,27 +1,30 @@
 import React,{useState, useEffect} from 'react'
-import { deleteDoc, doc, db, collection, addDoc } from '../firebase'
+import { deleteDoc, doc, db, collection, addDoc, serverTimestamp } from '../firebase'
 
 export default function Friend({pic, last, name, uid, friendsList}) {
     const [added, setAdded] = useState(false)
     const [id, setId] = useState('')
 
     useEffect(()=>{
+        let w = 1
         friendsList.forEach(friend=>{
             if(friend.friendName === name){
                 setAdded(true)
                 setId(friend.friendId)
+                w = 0
             }
         })
+        if(w){
+            setAdded(false)
+        }
     },[friendsList, name])
 
     async function addFriend(){
         const res = await addDoc(collection(db, `friends/${uid}/friend`),{
             friendAvatar: pic,
             friendName: name,
+            timestamp: serverTimestamp()
         })
-        if(res){
-            setAdded(true)
-        }
     }
 
     async function removeFriend(){

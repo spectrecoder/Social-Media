@@ -3,14 +3,14 @@ import Friend from './Friend'
 import LeftHeader from './LeftHeader'
 import {useSelector} from 'react-redux'
 import {profile} from '../slices/profileSlice'
-import { db, collection, onSnapshot } from '../firebase'
+import { db, collection, onSnapshot, query, orderBy } from '../firebase'
 
 export default function Followers() {
     const [friendsList, setFriendsList] = useState([])
     const {info} = useSelector(profile)
 
     useEffect(()=>{
-        const unSub = onSnapshot(collection(db, `friends/${info.uid}/friend`), snapshot=>{
+        const unSub = onSnapshot(query(collection(db, `friends/${info.uid}/friend`), orderBy('timestamp', 'desc')), snapshot=>{
             setFriendsList(snapshot.docs.map(doc=>({friendId: doc.id, ...doc.data()})))
         })
         return ()=>unSub()

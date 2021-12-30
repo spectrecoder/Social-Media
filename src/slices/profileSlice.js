@@ -3,7 +3,8 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     info: null, 
     lightBox: {class: 'hidden', postInfo: null},
-    dName: null
+    dName: null,
+    message: {color: null, notice: null, icon: null, show: false}
 }
 
 export const profileSlice = createSlice({
@@ -19,11 +20,14 @@ export const profileSlice = createSlice({
         },
         display: (state, action)=>{
             state.dName = action.payload.name
+        },
+        setMessage: (state, action)=>{
+            state.message = action.payload
         }
     }
 })
 
-export const {makeProfile, openBox, display} = profileSlice.actions
+export const {makeProfile, openBox, display, setMessage} = profileSlice.actions
 export const profile = (state) => state.profile
 export const lb = (state) => state.profile.lightBox
 export default profileSlice.reducer 

@@ -12,6 +12,7 @@ import {auth, onAuthStateChanged} from './firebase'
 import {useDispatch, useSelector} from 'react-redux'
 import {profile} from './slices/profileSlice'
 import {makeProfile} from './slices/profileSlice'
+import Messages from './components/Messages';
 
 function App() {
   const userProfile = useSelector(profile)
@@ -38,6 +39,7 @@ function App() {
         <>
           <Route path="/" element={
             <>
+              <Messages/>
               <Header/>
               <LeftSideBar/>
               <RightSideBar/>

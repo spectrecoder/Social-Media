@@ -378,3 +378,28 @@ body {
 .friendList {
   transition: all 0.3s ease;
 }
+
+.friendList__show {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.friendList__hide {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.msg {
+  z-index: 99999999999999999;
+}
+
+.bar {
+  animation: shrinking 2s linear forwards;
+}
+
+@keyframes shrinking {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}

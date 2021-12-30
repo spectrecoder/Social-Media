@@ -4,8 +4,8 @@ import FileButton from './FileButton'
 import LeftHeader from './LeftHeader'
 import MiniButton from './MiniButton'
 import {collection, addDoc, db, serverTimestamp, deleteObject, storage, ref} from '../firebase'
-import {useSelector} from 'react-redux'
-import {profile} from '../slices/profileSlice'
+import {useSelector, useDispatch} from 'react-redux'
+import {profile, setMessage} from '../slices/profileSlice'
 
 export default function Post() {
     const [postMsg, setPostMsg] = useState('')
@@ -14,6 +14,7 @@ export default function Post() {
     const [file, setFile] = useState(null)
     const [imageName, setImageName] = useState('')
     const user = useSelector(profile)
+    const dispatch = useDispatch()
 
     async function makePost(e){
         e.preventDefault()
@@ -28,11 +29,14 @@ export default function Post() {
             userImageName: file?.name || ''
         })
         if (res){
+            dispatch(setMessage({color: 'green', notice: 'successfully posted', icon: 'fas fa-check', show:true}))
             setPostMsg('')
             setFile(null)
             setUrl('')
             setDisable(false)
             setImageName('')
+        }else{
+            dispatch(setMessage({color: 'red', notice: 'failed to post', icon: 'fas fa-shield-virus', show:true}))
         }
     }
 
