@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import AvatarImg from './AvatarImg'
 import FileButton from './FileButton'
 import {useSelector, useDispatch} from 'react-redux'
-import {profile, openBox} from '../slices/profileSlice'
+import {profile, openBox, setMessage} from '../slices/profileSlice'
 import {doc, updateDoc, db} from '../firebase'
 
 export default function UpdatePost({msg, id, url, imgName, userImgName}) {
@@ -30,6 +30,7 @@ export default function UpdatePost({msg, id, url, imgName, userImgName}) {
             userImageName: updatedFile?.name || '' ,
         })
         dispatch(openBox({class: 'hidden', postData:null}))
+        dispatch(setMessage({color: 'green', notice: 'successfully updated', icon: 'fas fa-check', show:true}))
     }
 
     function deleteImage(e){

@@ -2,7 +2,7 @@ import React,{useRef, useState} from 'react'
 import { Link } from "react-router-dom";
 import {auth, createUserWithEmailAndPassword, updateProfile, googleProvider, signInWithPopup} from '../firebase'
 import {useDispatch} from 'react-redux'
-import {display} from '../slices/profileSlice'
+import {display, setMessage} from '../slices/profileSlice'
 
 export default function SignUp() {
     const checkRef = useRef()
@@ -23,10 +23,11 @@ export default function SignUp() {
             setUserName('')
             setEmail('')
             setPass('')
+            dispatch(setMessage({color: 'green', notice: 'successfully signed up', icon: 'fas fa-check', show:true}))
         })
         .catch((error) => {
             const errorMessage = error.message;
-            console.log(errorMessage)
+            dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
         })
     }
 
@@ -35,9 +36,10 @@ export default function SignUp() {
         .then((result) => {
           const user = result.user
           console.log(user)
+          dispatch(setMessage({color: 'green', notice: 'successfully signed up', icon: 'fas fa-check', show:true}))
         }).catch((error) => {
           const errorMessage = error.message;
-          console.log(errorMessage)
+          dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
         });
     }
 

@@ -28,6 +28,7 @@ function App() {
 
   return (
     <Router>
+      <Messages/>
       <Routes>
         {!userProfile.info?
         <>
@@ -39,7 +40,6 @@ function App() {
         <>
           <Route path="/" element={
             <>
-              <Messages/>
               <Header/>
               <LeftSideBar/>
               <RightSideBar/>

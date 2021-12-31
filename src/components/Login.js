@@ -1,11 +1,14 @@
 import React,{useRef, useState} from 'react'
 import { Link } from "react-router-dom";
 import {auth, signInWithEmailAndPassword, googleProvider, signInWithPopup} from '../firebase'
+import {useDispatch} from 'react-redux'
+import {setMessage} from '../slices/profileSlice'
 
 export default function Login() {
     const checkRef = useRef()
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+    const dispatch = useDispatch()
 
     function signInUser(e){
         e.preventDefault()
@@ -14,10 +17,12 @@ export default function Login() {
             const user = userCredential.user;
             setEmail('')
             setPass('')
+            dispatch(setMessage({color: 'green', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
         })
         .catch((error) => {
             const errorMessage = error.message;
-            console.log(errorMessage)
+            dispatch(setMessage({color: 'green', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
+            
         })
     }
 
@@ -26,9 +31,10 @@ export default function Login() {
         .then((result) => {
           const user = result.user
           console.log(user)
+          dispatch(setMessage({color: 'green', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
         }).catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage)
+            const errorMessage = error.message;
+            dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
         });
     }
 

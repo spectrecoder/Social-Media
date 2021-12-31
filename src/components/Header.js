@@ -3,14 +3,15 @@ import AvatarImg from './AvatarImg'
 import Icon from './Icon'
 import Logo from './Logo'
 import {auth, signOut } from '../firebase'
-import {useSelector} from 'react-redux'
-import {profile} from '../slices/profileSlice'
+import {useSelector, useDispatch} from 'react-redux'
+import {profile, setMessage} from '../slices/profileSlice'
 import AllFriends from './AllFriends'
 
 export default function Header() {
     const user = useSelector(profile)
     const [open, setOpen] = useState(false)
     const spanRef = useRef()
+    const dispatch = useDispatch()
 
     return (
         <section className="header bg-gray-700 py-5 fixed top-0 left-0 w-full z-50">
@@ -32,11 +33,11 @@ export default function Header() {
                         <Icon iconName="fas fa-bell"/>
                         <div onClick={()=>setOpen(state=>!state)} className="icon w-16 h-16 rounded-full bg-gray-800 flex justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group">
                             <i className={`fas fa-user text-2xl text-gray-400 group-hover:text-gray-100 relative`}>
-                                <span ref={spanRef} className="absolute -top-2 left-full w-4 h-4 rounded-full bg-blue-500 text-white font-semibold text-xs flex items-center justify-center">0</span>
+                                <span ref={spanRef} className="absolute -top-2 -right-4 w-5 h-5 rounded-full bg-blue-500 text-white font-semibold text-xs flex items-center justify-center">0</span>
                             </i>
                         </div>
                         <Icon iconName="fas fa-globe-europe"/>
-                        <Icon iconName="fas fa-sign-out-alt" auth={auth} signOut={signOut}/>
+                        <Icon iconName="fas fa-sign-out-alt" auth={auth} signOut={signOut} dispatch={dispatch} setMessage={setMessage}/>
                         <Icon iconName="far fa-question-circle"/>
                     </div>
 
