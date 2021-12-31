@@ -50,9 +50,18 @@ module.exports = {
       },
       maxWidth: {
         'headerWrapper': '150rem',
-        'xxl': '115rem'
+        'xxl': '115rem',
+        '80%': '80%'
       }
     },
+
+    screens:{
+      'sm': '450px',
+      'md':	'768px',
+      'lg':	'1024px',
+      'xl':	'1280px',
+      '2xl':	'1536px'
+    }
   },
   variants: {
     extend: {},

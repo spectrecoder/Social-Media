@@ -11,7 +11,7 @@
     @apply w-14 h-14 flex justify-center items-center rounded-full text-white text-3xl cursor-pointer;
   }
   .label__style {
-    @apply text-xl text-gray-500 font-normal select-none;
+    @apply sm:text-xl text-lg text-gray-500 font-normal select-none;
   }
   .input__style {
     @apply normal-case w-full p-4 rounded-lg overflow-hidden border border-solid border-gray-300 focus:border-indigo-400 focus:shadow-lg mt-2 text-lg text-gray-600;
