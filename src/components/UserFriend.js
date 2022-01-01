@@ -7,7 +7,7 @@ export default function UserFriend({friendName, friendAvatar, uid, fId}) {
     }
 
     return (
-        <div className="px-6 py-3 border-0 border-b border-solid border-gray-200 flex justify-between items-center">
+        <div className="sm:px-6 px-2 py-3 border-0 border-b border-solid border-gray-200 flex justify-between items-center">
             <div className="friend__Avatar flex gap-4 items-center">
                 <img src={`images/${friendAvatar}`} alt="user friend" className="w-16 h-16 rounded-full border-0 object-cover"/>
                 <div className="friendName">
@@ -16,7 +16,7 @@ export default function UserFriend({friendName, friendAvatar, uid, fId}) {
                 </div>
             </div>
             <div className="friendIcons">
-                <i className="fas fa-heart text-2xl text-gray-600 hover:text-red-600 mr-3 cursor-pointer"></i>
+                <i className="fas fa-heart text-2xl text-gray-600 hover:text-red-600 mr-3 cursor-pointer hidden sm:inline-block"></i>
                 <i onClick={rmvFriend} className="fas fa-trash-alt text-2xl text-gray-600 hover:text-red-600 cursor-pointer"></i>
             </div>
         </div>

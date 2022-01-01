@@ -21,7 +21,7 @@ export default function Login() {
         })
         .catch((error) => {
             const errorMessage = error.message;
-            dispatch(setMessage({color: 'green', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
+            dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
             
         })
     }

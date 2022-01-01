@@ -375,8 +375,16 @@ body {
   right: 0;
 }
 
-.friendList {
+.trans {
   transition: all 0.3s ease;
+}
+
+.module__show {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.module__hide {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 }
 
 .friendList__show {
@@ -385,6 +393,10 @@ body {
 
 .friendList__hide {
   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.noModule {
+  clip-path: none;
 }
 
 .msg {
@@ -401,5 +413,15 @@ body {
   }
   to {
     width: 0;
+  }
+}
+
+@media (min-width: 485px) {
+  .module__show {
+    clip-path: none;
+  }
+
+  .module__hide {
+    clip-path: none;
   }
 }
