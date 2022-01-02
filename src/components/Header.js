@@ -48,7 +48,7 @@ export default function Header({leftSide, rightSide}) {
                 }
             })
         }
-    },[])
+    },[leftSide, rightSide])
 
     function openModules(action){
         switch(action){

@@ -98,14 +98,14 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
                     <ToggleIcon iconName="fas fa-share-alt" amount="23k"/>
                 </div>
                 <div className="rmd">
-                    <div className="newPeople flex justify-center">
+                    <div className="newPeople sm:flex justify-center hidden">
                         <SideItem avatar="pic1.png"/>
                         <SideItem avatar="pic2.png" margin="4"/>
                         <SideItem avatar="pic3.png" margin="4"/>
                         <SideItem avatar="pic4.png" margin="4"/>
                         <SideItem avatar="hot.jpg" margin="4"/>
                     </div>
-                    <p className="text-lg text-gray-700 font-semibold mt-3">You, Rahul and <span className="text-red-500">39+ more</span> liked</p>
+                    <p className="text-lg text-gray-700 font-semibold mt-3 hidden sm:block">You, Rahul and <span className="text-red-500">39+ more</span> liked</p>
                 </div>
             </div>
 

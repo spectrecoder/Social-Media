@@ -5,7 +5,7 @@ import MainRight from './MainRight'
 
 export default function MiddleSection() {
     return (
-        <section className="middleSection max-w-xxl mx-auto pt-14">
+        <section className="middleSection sm:max-w-mml md:max-w-mxl lg:max-w-sxl slg:max-w-xxl max-w-mml mx-auto pt-14">
             <MainLeft/>
             <MainMiddle/>
             <MainRight/>

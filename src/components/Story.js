@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Story({image, bgImg}) {
     return (
-        <div className="story w-52 h-full rounded-xl overflow-hidden relative cursor-pointer">
+        <div className="story w-52 h-full rounded-xl overflow-hidden relative cursor-pointer mb-3 md:mb-0">
             <img src={`images/${bgImg}`} alt="story" className="w-full h-full object-cover border-0 transition duration-500 bigImage"/>
             <div className="story__overlay bg-black opacity-20 absolute w-full h-full z-10 top-0 left-0"></div>
             <h3 className="text-xl text-black font-medium absolute left-0 w-full text-center">Harry Martinsson</h3>

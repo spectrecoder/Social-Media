@@ -54,7 +54,12 @@ module.exports = {
       maxWidth: {
         'headerWrapper': '150rem',
         'xxl': '115rem',
-        '80%': '80%'
+        'sxl': '100rem',
+        'mxl': '90rem',
+        'sml': '80rem',
+        'mml': '50rem',
+        '80%': '80%',
+        '13': '13rem'
       }
     },
 
@@ -62,6 +67,7 @@ module.exports = {
       'sm': '485px',
       'md':	'768px',
       'lg':	'1024px',
+      'slg':	'1120px',
       'xl':	'1280px',
       '2xl':	'1536px'
     }
