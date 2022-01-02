@@ -1,9 +1,9 @@
 import React from 'react'
 import SideItem from './SideItem'
 
-export default function LeftSideBar() {
+export default function LeftSideBar({leftSide}) {
     return (
-        <section className="leftSideBar h-full w-32 bg-white fixed top-0 left-0 shadow-md pt-44 text-center">
+        <section ref={leftSide} className="leftSideBar h-screen md:w-32 w-28 bg-white fixed top-0 lg:left-0 -left-32 shadow-md lg:pt-44 pt-64 text-center overflow-y-scroll hideScrollBar trans">
             <div className="leftSideBar__container inline-block space-y-6">
                 <SideItem iconName="fas fa-bars" fill/>
                 <SideItem iconName="fas fa-rss"/>

@@ -1,5 +1,5 @@
 import './App.css';
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import Login from './components/Login';
@@ -17,6 +17,8 @@ import Messages from './components/Messages';
 function App() {
   const userProfile = useSelector(profile)
   const dispatch = useDispatch()
+  const leftSide = useRef()
+  const rightSide = useRef()
 
   useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,9 +42,9 @@ function App() {
         <>
           <Route path="/" element={
             <>
-              <Header/>
-              <LeftSideBar/>
-              <RightSideBar/>
+              <Header leftSide={leftSide} rightSide={rightSide}/>
+              <LeftSideBar leftSide={leftSide}/>
+              <RightSideBar rightSide={rightSide}/>
               <MiddleSection/>
               <LightBox/>
             </>

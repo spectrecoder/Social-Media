@@ -47,17 +47,13 @@ body {
   background-color: #f1f1f1;
 }
 
-.leftSideBar {
-  overflow-y: scroll;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
-.leftSideBar::-webkit-scrollbar {
+.hideScrollBar::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.leftSideBar {
+.hideScrollBar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -405,6 +401,14 @@ body {
 
 .bar {
   animation: shrinking 2s linear forwards;
+}
+
+.leftShow {
+  left: 0;
+}
+
+.rightShow {
+  right: 0;
 }
 
 @keyframes shrinking {

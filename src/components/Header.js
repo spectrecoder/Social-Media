@@ -1,4 +1,4 @@
-import React,{useState, useRef} from 'react'
+import React,{useState, useRef, useEffect} from 'react'
 import AvatarImg from './AvatarImg'
 import Icon from './Icon'
 import Logo from './Logo'
@@ -7,7 +7,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {profile, setMessage} from '../slices/profileSlice'
 import AllFriends from './AllFriends'
 
-export default function Header() {
+export default function Header({leftSide, rightSide}) {
     const user = useSelector(profile)
     const [open, setOpen] = useState(false)
     const spanRef = useRef()
@@ -15,6 +15,40 @@ export default function Header() {
     const dispatch = useDispatch()
     const [menuOpen, setMenuOpen] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
+    const doubleMenu = useRef()
+
+    useEffect(()=>{
+        const menus = doubleMenu.current
+        const left = leftSide.current
+        const right = rightSide.current
+        menus.addEventListener('click', ()=>{
+            if(!left.classList.contains('leftShow') && !right.classList.contains('rightShow')){
+                setMenuOpen(false)
+                setOpen(false)
+                setOpenSearch(false)
+                left.classList.add('leftShow')
+                right.classList.add('rightShow')
+            }else{
+                left.classList.remove('leftShow')
+                right.classList.remove('rightShow')
+            }
+        })
+
+        return ()=>{
+            menus.removeEventListener('click', ()=>{
+                if(!left.classList.contains('leftShow') && !right.classList.contains('rightShow')){
+                    setMenuOpen(false)
+                    setOpen(false)
+                    setOpenSearch(false)
+                    left.classList.add('leftShow')
+                    right.classList.add('rightShow')
+                }else{
+                    left.classList.remove('leftShow')
+                    right.classList.remove('rightShow')
+                }
+            })
+        }
+    },[])
 
     function openModules(action){
         switch(action){
@@ -46,20 +80,16 @@ export default function Header() {
                 <div className="header__left lg:w-2/4 w-full border-0 lg:border-r-2 border-b-2 lg:border-b-0 border-solid border-gray-500 flex items-center justify-between lg:pr-6 mr-6 pb-6 lg:pb-0">
                     <Logo/>
                     
-                    <div className="toggle__Icons sm:hidden sm:gap-0 gap-4 flex">
-                        <div onClick={()=>openModules('OPEN__SEARCHBAR')} className={`icon w-16 h-16 rounded-full bg-gray-800 flex justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group`}>
-                            <i className={`fas fa-search text-2xl text-gray-400 group-hover:text-gray-100`}></i>
-                        </div>
-                        <div onClick={()=>openModules('OPEN__SEARCHBAR')} className={`icon w-16 h-16 rounded-full bg-gray-800 flex justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group`}>
-                            <i className={`fas fa-search text-2xl text-gray-400 group-hover:text-gray-100`}></i>
-                        </div>
-                    </div>
-
-                    <form className={`header__form absolute trans top-112 left-0 w-full sm:static sm:top-auto sm:left-auto sm:w-100 sm:max-w-80% lg:w-25 xl:w-89 bg-gray-600 py-5 px-9 rounded-full flex items-center ${openSearch?'module__show':'module__hide'} sm:transition-none`}>
+                    <form className={`header__form absolute trans top-112 left-0 w-full sm:static sm:top-auto sm:left-auto sm:w-90 sm:max-w-80% lg:w-25 xl:w-89 bg-gray-600 py-5 px-9 rounded-full flex items-center ${openSearch?'module__show':'module__hide'} sm:transition-none`}>
                         <input type="text" placeholder="Search People, Pages, etc" className="w-full bg-transparent text-xl text-white"/>
                         <i className="fas fa-search text-gray-400 text-2xl ml-4 cursor-pointer"></i>
                     </form>
-                    <h3 className="text-white uppercase text-2xl font-semibold hidden md:block">newsfeed</h3>
+
+                    <div ref={doubleMenu} className={`icon w-16 h-16 lg:hidden flex rounded-full bg-gray-800 justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group`}>
+                        <i className={`fas fa-sliders-h text-2xl text-gray-400 group-hover:text-gray-100`}></i>
+                    </div>
+
+                    <h3 className="text-white uppercase text-2xl font-semibold hidden lg:block">newsfeed</h3>
                 </div>
 
                 <div className="header__right lg:w-2/4 w-full flex items-center justify-between pt-6 lg:pt-0">
@@ -84,7 +114,6 @@ export default function Header() {
                         <i className="fas fa-cog text-3xl text-gray-100 ml-6 cursor-pointer hidden md:block"></i>
                     </div>
 
-
                     <div className="toggleIcons sm:hidden sm:gap-0 gap-4 flex">
                         <div onClick={()=>openModules('OPEN__MENU')} className={`icon w-16 h-16 rounded-full bg-gray-800 flex justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group`}>
                             <i className={`fas fa-bars text-2xl text-gray-400 group-hover:text-gray-100`}></i>
@@ -94,6 +123,10 @@ export default function Header() {
                             <i className={`fas fa-user text-2xl text-gray-400 group-hover:text-gray-100 relative`}>
                                 <span ref={sec__spanRef} className="absolute -top-2 -right-4 w-5 h-5 rounded-full bg-blue-500 text-white font-semibold text-xs flex items-center justify-center">0</span>
                             </i>
+                        </div>
+
+                        <div onClick={()=>openModules('OPEN__SEARCHBAR')} className={`icon w-16 h-16 rounded-full bg-gray-800 flex justify-center items-center cursor-pointer hover:bg-red-400 transition duration-500 ease-in-out group`}>
+                            <i className={`fas fa-search text-2xl text-gray-400 group-hover:text-gray-100`}></i>
                         </div>
                     </div>
 
