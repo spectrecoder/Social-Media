@@ -31,7 +31,7 @@ const settings = {
 
 export default function Suggested() {
     return (
-        <div className="suggested h-25 bg-white rounded-lg overflow-hidden mb-8">
+        <div className="suggested h-81 bg-white rounded-lg overflow-hidden mb-8">
 
             <div className="suggested__header flex items-center gap-4  h-32 pl-8">
                 <i className="fab fa-gripfire text-4xl w-16 h-16 rounded-full border-2 border-solid border-gray-700 text-gray-700 text-center leading-loose"></i>
