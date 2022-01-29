@@ -82,7 +82,7 @@ export default function Post() {
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="far fa-image" disable={disable} setImageName={setImageName}/>
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-video" disable={disable} setImageName={setImageName}/>
                                 <FileButton setFile={setFile} setUrl={setUrl} setDisable={setDisable} fileInfo={file} iconName="fas fa-camera" disable={disable} setImageName={setImageName}/>
-                                {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default relative">{file.name} <i className="fas fa-times-circle text-lg absolute top-0 right-2 cursor-pointer" onClick={deleteImg}></i></button>}
+                                {file && <button className="py-2 px-8 bg-gray-100 shadow-md text-xl capitalize font-semibold text-blue-500 rounded-full border border-solid border-gray-300 cursor-default relative">{file.name.length > 7?`${file.name.slice(0,7)}...`:file.name} <i className="fas fa-times-circle text-lg absolute top-0 right-2 cursor-pointer" onClick={deleteImg}></i></button>}
                                 {disable && <i className="fas fa-circle-notch text-2xl text-blue-500"></i>}
                             </div>
                             <MiniButton text="Reset" makeReset={makeReset}/>
