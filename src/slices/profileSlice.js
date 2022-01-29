@@ -4,7 +4,8 @@ const initialState = {
     info: null, 
     lightBox: {class: 'hidden', postInfo: null},
     dName: null,
-    message: {color: null, notice: null, icon: null, show: false}
+    // message: {color: null, notice: null, icon: null, show: false}
+    message: {color1: null, color2: null, notice: null, icon: null, show: false}
 }
 
 export const profileSlice = createSlice({

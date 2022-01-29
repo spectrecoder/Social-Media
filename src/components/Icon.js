@@ -6,9 +6,9 @@ export default function Icon({iconName, auth, signOut, dispatch, setMessage, nam
             return
         }else{
             signOut(auth).then(() => {
-                dispatch(setMessage({color: 'green', notice: 'Signed-out successfully', icon: 'fas fa-check', show:true}))
+                dispatch(setMessage({color1: 'bg-green-500', color2: 'bg-green-300', notice: 'Signed-out successfully', icon: 'fas fa-check', show:true}))
               }).catch((error) => {
-                dispatch(setMessage({color: 'red', notice: error.message, icon: 'fas fa-check', show:true}))
+                dispatch(setMessage({color1: 'bg-red-500', color2: 'bg-red-300', notice: error.message, icon: 'fas fa-check', show:true}))
               });          
         }
     }

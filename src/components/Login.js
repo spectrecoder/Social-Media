@@ -17,11 +17,11 @@ export default function Login() {
             // const user = userCredential.user;
             setEmail('')
             setPass('')
-            dispatch(setMessage({color: 'green', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
+            dispatch(setMessage({color1: 'bg-green-500', color2: 'bg-green-300', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
         })
         .catch((error) => {
             const errorMessage = error.message;
-            dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
+            dispatch(setMessage({color1: 'bg-red-500', color2: 'bg-red-300', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
             
         })
     }
@@ -31,10 +31,10 @@ export default function Login() {
         .then((result) => {
           const user = result.user
           console.log(user)
-          dispatch(setMessage({color: 'green', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
+          dispatch(setMessage({color1: 'bg-green-500', color2: 'bg-green-300', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))
         }).catch((error) => {
             const errorMessage = error.message;
-            dispatch(setMessage({color: 'red', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
+            dispatch(setMessage({color1: 'bg-red-500', color2: 'bg-red-300', notice: errorMessage, icon: 'fas fa-shield-virus', show:true}))
         });
     }
 

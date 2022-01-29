@@ -30,7 +30,7 @@ export default function UpdatePost({msg, id, url, imgName, userImgName}) {
             userImageName: updatedFile?.name || '' ,
         })
         dispatch(openBox({class: 'hidden', postData:null}))
-        dispatch(setMessage({color: 'green', notice: 'successfully updated', icon: 'fas fa-check', show:true}))
+        dispatch(setMessage({color1: 'bg-green-500', color2: 'bg-green-300', notice: 'successfully updated', icon: 'fas fa-check', show:true}))
     }
 
     function deleteImage(e){

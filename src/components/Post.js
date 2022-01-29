@@ -29,14 +29,14 @@ export default function Post() {
             userImageName: file?.name || ''
         })
         if (res){
-            dispatch(setMessage({color: 'green', notice: 'successfully posted', icon: 'fas fa-check', show:true}))
+            dispatch(setMessage({color1: 'bg-green-500', color2: 'bg-green-300', notice: 'successfully posted', icon: 'fas fa-check', show:true}))
             setPostMsg('')
             setFile(null)
             setUrl('')
             setDisable(false)
             setImageName('')
         }else{
-            dispatch(setMessage({color: 'red', notice: 'failed to post', icon: 'fas fa-shield-virus', show:true}))
+            dispatch(setMessage({color1: 'bg-red-500', color2: 'bg-red-300', notice: 'failed to post', icon: 'fas fa-shield-virus', show:true}))
         }
     }
 
