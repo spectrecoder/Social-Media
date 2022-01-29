@@ -19,7 +19,7 @@ export default function UpdatePost({msg, id, url, imgName, userImgName}) {
         setUpdatedUrl(url || '')
         setUpdatedFile((imgName&&{name:userImgName}) || null)
         setUImageName(imgName)
-    },[msg])
+    },[msg, url, imgName, userImgName])
 
     function updatePost(e){
         e.preventDefault()

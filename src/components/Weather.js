@@ -30,7 +30,7 @@ export default function Weather() {
         <div className="weather w-full h-90 relative overflow-hidden mb-8" id="weather">
             <div className="weather__overlay absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-70"></div>
 
-            <img src="images/mountain.jpg" alt="Photo by eberhard grossgasteiger from Pexels" className="w-full h-full object-cover border-none"/>
+            <img src="images/mountain.jpg" alt="Photoby eberhard grossgasteiger from Pexels" className="w-full h-full object-cover border-none"/>
 
             <i className="fas fa-temperature-high weather__icon absolute top-32 left-2/4 text-8xl text-white"></i>
 

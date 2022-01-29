@@ -14,7 +14,7 @@ export default function Login() {
         e.preventDefault()
         signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
-            const user = userCredential.user;
+            // const user = userCredential.user;
             setEmail('')
             setPass('')
             dispatch(setMessage({color: 'green', notice: 'successfully logged in', icon: 'fas fa-check', show:true}))

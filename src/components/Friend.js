@@ -20,7 +20,7 @@ export default function Friend({pic, last, name, uid, friendsList}) {
     },[friendsList, name])
 
     async function addFriend(){
-        const res = await addDoc(collection(db, `friends/${uid}/friend`),{
+        await addDoc(collection(db, `friends/${uid}/friend`),{
             friendAvatar: pic,
             friendName: name,
             timestamp: serverTimestamp()

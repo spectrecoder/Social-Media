@@ -235,6 +235,9 @@ body {
   width: 400px;
   height: 20rem;
 } */
+.slick-arrow {
+  opacity: 1;
+}
 
 .slick-list {
   width: 100% !important;
