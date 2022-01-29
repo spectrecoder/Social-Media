@@ -40,12 +40,12 @@ export default function Profile() {
                     <p className="text-red-500 text-xl font-normal py-2 hover:underline cursor-pointer">29 new likes this week</p>
                     <div className="image__container flex mt-4 justify-center">
                         <SideItem avatar="pic1.png"/>
-                        <SideItem avatar="pic2.png" margin="5"/>
-                        <SideItem avatar="pic3.png" margin="5"/>
-                        <SideItem avatar="pic4.png" margin="5"/>
-                        <SideItem avatar="hot.jpg" margin="5"/>
-                        <SideItem avatar="pic1.png" margin="5"/>
-                        <SideItem avatar="pic2.png" margin="5"/>
+                        <SideItem avatar="pic2.png" margin="-ml-5"/>
+                        <SideItem avatar="pic3.png" margin="-ml-5"/>
+                        <SideItem avatar="pic4.png" margin="-ml-5"/>
+                        <SideItem avatar="hot.jpg" margin="-ml-5"/>
+                        <SideItem avatar="pic1.png" margin="-ml-5"/>
+                        <SideItem avatar="pic2.png" margin="-ml-5"/>
                     </div>
                 </div>
 

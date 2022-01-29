@@ -100,10 +100,10 @@ export default function SentPost({image,msg,id,imgName,name,userId,userImg, user
                 <div className="rmd">
                     <div className="newPeople sm:flex justify-center hidden">
                         <SideItem avatar="pic1.png"/>
-                        <SideItem avatar="pic2.png" margin="4"/>
-                        <SideItem avatar="pic3.png" margin="4"/>
-                        <SideItem avatar="pic4.png" margin="4"/>
-                        <SideItem avatar="hot.jpg" margin="4"/>
+                        <SideItem avatar="pic2.png" margin="-ml-4"/>
+                        <SideItem avatar="pic3.png" margin="-ml-4"/>
+                        <SideItem avatar="pic4.png" margin="-ml-4"/>
+                        <SideItem avatar="hot.jpg" margin="-ml-4"/>
                     </div>
                     <p className="text-lg text-gray-700 font-semibold mt-3 hidden sm:block">You, Rahul and <span className="text-red-500">39+ more</span> liked</p>
                 </div>

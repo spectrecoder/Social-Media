@@ -4,7 +4,7 @@ export default function SideItem({iconName, fill, avatar, margin}) {
     return (
         <>
             {avatar?
-            (<div className={`w-14 h-14 rounded-full cursor-pointer ${margin?`-ml-${margin}` : ''}`}>
+            (<div className={`w-14 h-14 rounded-full cursor-pointer ${margin?margin:''}`}>
                 <img src={`images/${avatar}`} alt="images" className="w-full h-full rounded-full object-cover border-none"/>
             </div>)
             :
